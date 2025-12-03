@@ -76,3 +76,52 @@ O projeto inclui testes unitários com xUnit para o serviço de conta (ContaServ
 - BancoDigital.Dominio – entidades de domínio (ex.: Conta) e interfaces
 - BancoDigital.Infraestrutura – EF Core / MySQL / repositórios
 - BancoDigital.Testes – testes unitários com xUnit
+
+## 📌 Exemplos de requisições GraphQL
+
+### Criar conta
+
+```graphql
+mutation {
+  criarConta(conta: "12345", saldoInicial: 100) {
+    conta
+    saldo
+  }
+}
+```
+
+### Consultar saldo
+```graphql
+query {
+  saldo(conta: 12345)
+}
+```
+### Depositar
+```graphql
+mutation {
+  depositar(conta: "12345", valor: 50){
+    conta
+    saldo
+  }
+}
+```
+
+### Sacar (saldo suficiente)
+```graphql
+mutation {
+  sacar(conta: "12345", valor: 30){
+    conta
+    saldo
+  }
+}
+```
+
+### Sacar (saldo insuficiente — retorna erro GraphQL)
+```graphql
+mutation {
+  sacar(conta: "12345", valor: 9999){
+    conta
+    saldo
+  }
+}
+```
